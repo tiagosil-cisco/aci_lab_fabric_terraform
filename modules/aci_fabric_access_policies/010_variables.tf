@@ -287,12 +287,6 @@ variable "aaeps" {
     OTT-CORE-INBAND-VPC-AAEP = {
       domain = ["OTT-CORE-INBAND-VPC-L3OUT"]
     },
-    BRATTICE-FI-AAEP = {
-      domain = ["BRATTICE-FI-PHYSICAL"]
-    },
-    A-NCS5-PE01-AAEP = {
-      domain = ["A-NCS5-PE01-L3OUT"]
-    },
   }
 }
 
@@ -308,17 +302,29 @@ variable "leafs_appg" {
   }
 }
 
+# Leaf VPC Port Policy Groups
+variable "leafs_vppg" {
+  default = {
+    VPC_to_OTT-CORE = {
+      lldp         = "lldp_enabled"
+      cdp          = "cdp_enabled"
+      channel_mode = "lacp_active"
+      aaep         = "OTT-CORE-MAIN-VPC-AAEP"
+      desc         = "External N9K VPC to OTT-CORE"
+    }
+  }
+}
 
 # Interfaces
 variable "interfaces" {
   default = {
-    "leaf_103_eth_1_1" = {
+    "leaf_103_eth_1_10" = {
       leaf   = "103"
-      iftype = "switch_port"
+      iftype = "vpc"
       lfblk  = "1"
-      from   = "1"
-      end    = "1"
-      polgrp = "A-NCS5-PE01"
-    }
+      from   = "10"
+      end    = "10"
+      polgrp = "VPC_to_OTT-CORE"
+    },
   }
 }

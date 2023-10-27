@@ -4,7 +4,7 @@ variable "credentials" {
     aci = {
       username = "dovetail"
       password = "C!sco123"
-      url      = "https://10.0.5.194"
+      url      = "https://10.0.255.100"
     }
 
   }

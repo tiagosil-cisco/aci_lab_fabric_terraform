@@ -1,4 +1,5 @@
 # Leaf Access Port Policy Groups
+/*
 resource "aci_leaf_access_port_policy_group" "leaf_appgs" {
   for_each                      = var.leafs_appg
   name                          = each.key
@@ -24,3 +25,4 @@ resource "aci_access_port_block" "leaf_apbs" {
   from_port               = each.value.from
   to_port                 = each.value.end
 }
+*/

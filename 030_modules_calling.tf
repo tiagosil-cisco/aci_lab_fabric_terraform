@@ -8,3 +8,11 @@ module "aci_fabric_access_policies" {
 
 }
 
+module "aci_fabric_policies" {
+
+  source = "./modules/aci_fabric_policies"
+
+  credentials  = var.credentials
+  project_name = local.project_name
+
+}
