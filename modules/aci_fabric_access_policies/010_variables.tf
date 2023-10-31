@@ -155,10 +155,6 @@ variable "vlan_pools" {
       desc       = "pool for project BRIDGE to be used by L3Outs"
       allocation = "static"
     },
-    INBAND_MGMT_VLANS = {
-      desc       = "pool for project BRIDGE to be used by L3Outs"
-      allocation = "static"
-    },
     OTT-CORE-MAIN-VPC = {
       desc       = "pool for project BRIDGE to be used by L3Outs"
       allocation = "static"
@@ -216,18 +212,6 @@ variable "vlan_ranges" {
       end        = "1320"
       allocation = "static"
     },
-    9 = {
-      vlan_pool  = "INBAND_MGMT_VLANS"
-      start      = "8"
-      end        = "9"
-      allocation = "static"
-    },
-    10 = {
-      vlan_pool  = "INBAND_MGMT_VLANS"
-      start      = "500"
-      end        = "500"
-      allocation = "static"
-    },
     11 = {
       vlan_pool  = "OTT-CORE-MAIN-VPC"
       start      = "503"
@@ -263,18 +247,9 @@ variable "domains" {
     OTT-CORE-MAIN-VPC-L3OUT = {
       type = "l3dom"
     },
-    OTT-CORE-INBAND-VPC-L3OUT = {
-      type = "l3dom"
-    },
-    OTT-CORE-INBAND-PHYSICAL = {
-      type = "phys"
-    },
     BRATTICE-FI-PHYSICAL = {
       type = "phys"
     },
-    A-NCS5-PE01-L3OUT = {
-      type = "l3dom"
-    }
   }
 }
 
@@ -282,25 +257,12 @@ variable "domains" {
 variable "aaeps" {
   default = {
     OTT-CORE-MAIN-VPC-AAEP = {
-      domain = ["OTT-CORE-MAIN-VPC-L3OUT"]
-    },
-    OTT-CORE-INBAND-VPC-AAEP = {
-      domain = ["OTT-CORE-INBAND-VPC-L3OUT"]
-    },
-  }
-}
-
-# Leaf Access Port Policy Groups
-variable "leafs_appg" {
-  default = {
-    A-NCS5-PE01 = {
-      lldp = "lldp_enabled"
-      aaep = "A-NCS5-PE01-AAEP"
-      desc = "A-NCS5-PE01-AAEP"
+      name   = "OTT-CORE-MAIN-VPC-AAEP"
+      domain = "OTT-CORE-MAIN-VPC-L3OUT"
     }
-
   }
 }
+
 
 # Leaf VPC Port Policy Groups
 variable "leafs_vppg" {
@@ -320,6 +282,14 @@ variable "interfaces" {
   default = {
     "leaf_103_eth_1_10" = {
       leaf   = "103"
+      iftype = "vpc"
+      lfblk  = "1"
+      from   = "10"
+      end    = "10"
+      polgrp = "VPC_to_OTT-CORE"
+    },
+    "leaf_104_eth_1_10" = {
+      leaf   = "104"
       iftype = "vpc"
       lfblk  = "1"
       from   = "10"

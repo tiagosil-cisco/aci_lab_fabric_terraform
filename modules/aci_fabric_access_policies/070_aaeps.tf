@@ -9,7 +9,8 @@ variable "domain_prefix" {
 
 # Attachable Entity Profile
 resource "aci_attachable_access_entity_profile" "aaeps" {
-  for_each                = var.aaeps
-  name                    = each.key
-  relation_infra_rs_dom_p = [for f in each.value.domain : "${var.domain_prefix[var.domains["${f}"].type]}-${f}"]
+  for_each = var.aaeps
+  name     = each.key
+  //relation_infra_rs_dom_p = [for f in each.value.domain : "${var.domain_prefix[var.domains["${f}"].type]}-${f}"]
 }
+
