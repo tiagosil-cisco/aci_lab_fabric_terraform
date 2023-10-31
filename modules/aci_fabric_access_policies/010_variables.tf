@@ -143,14 +143,6 @@ variable "lacp" {
 
 variable "vlan_pools" {
   default = {
-    BRATTICE-FI-UCSX = {
-      desc       = "pool for UCS-X used in BRATTICE"
-      allocation = "dynamic"
-    },
-    BRATTICE-VMM-DOMAIN = {
-      desc       = "pool for VMM used in BRATTICE"
-      allocation = "dynamic"
-    },
     BRIDGE_L3OUTS = {
       desc       = "pool for project BRIDGE to be used by L3Outs"
       allocation = "static"
@@ -164,60 +156,7 @@ variable "vlan_pools" {
 }
 variable "vlan_ranges" {
   default = {
-    1 = {
-      vlan_pool  = "BRATTICE-FI-UCSX"
-      start      = "1500"
-      end        = "1500"
-      allocation = "dynamic"
-    },
-    2 = {
-      vlan_pool  = "BRATTICE-FI-UCSX"
-      start      = "1501"
-      end        = "1501"
-      allocation = "dynamic"
-    },
-    3 = {
-      vlan_pool  = "BRATTICE-FI-UCSX"
-      start      = "1521"
-      end        = "1521"
-      allocation = "dynamic"
-    },
-    4 = {
-      vlan_pool  = "BRATTICE-FI-UCSX"
-      start      = "1525"
-      end        = "1525"
-      allocation = "dynamic"
-    },
-    5 = {
-      vlan_pool  = "BRATTICE-FI-UCSX"
-      start      = "1526"
-      end        = "1526"
-      allocation = "dynamic"
-    }
-    6 = {
-      vlan_pool  = "BRATTICE-FI-UCSX"
-      start      = "1551"
-      end        = "1599"
-      allocation = "dynamic"
-    },
-    7 = {
-      vlan_pool  = "BRATTICE-VMM-DOMAIN"
-      start      = "1550"
-      end        = "1599"
-      allocation = "dynamic"
-    },
-    8 = {
-      vlan_pool  = "BRIDGE_L3OUTS"
-      start      = "1300"
-      end        = "1320"
-      allocation = "static"
-    },
-    11 = {
-      vlan_pool  = "OTT-CORE-MAIN-VPC"
-      start      = "503"
-      end        = "503"
-      allocation = "static"
-    },
+
     12 = {
       vlan_pool  = "OTT-CORE-MAIN-VPC"
       start      = "1600"
@@ -245,11 +184,14 @@ variable "vlan_ranges" {
 variable "domains" {
   default = {
     OTT-CORE-MAIN-VPC-L3OUT = {
-      type = "l3dom"
+      type      = "l3dom"
+      vlan_pool = "OTT-CORE-MAIN-VPC"
     },
+    /*
     BRATTICE-FI-PHYSICAL = {
       type = "phys"
     },
+    */
   }
 }
 
